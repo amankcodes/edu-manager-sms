@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile | Future Edu-Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            background: #f5f7fb;
+            font-family: "Segoe UI", sans-serif;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 35px;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            color: #1e8449;
+            margin-bottom: 25px;
+        }
+
+        .profile-top {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .profile-top img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #1e8449;
+        }
+
+        input[type="file"] {
+            margin-top: 10px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        label {
+            font-size: 14px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-top: 6px;
+        }
+
+        .actions {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+        }
+
+        button {
+            padding: 12px 22px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .save {
+            background: #1e8449;
+            color: white;
+        }
+
+        .back {
+            background: #e0e0e0;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>👤 My Profile</h2>
+
+    <!-- PROFILE PHOTO -->
+    <div class="profile-top">
+        <div>
+            <img id="profileImg" src="https://via.placeholder.com/150">
+            <input type="file" id="photoInput">
+            <button class="save" onclick="uploadPhoto()">Upload Photo</button>
+        </div>
+
+        <div>
+            <p><b>Role:</b> Student</p>
+            <p><b>ID:</b> <span id="userIdText">2</span></p>
+        </div>
+    </div>
+
+    <!-- PROFILE FORM -->
+    <div class="grid">
+        <div>
+            <label>Name</label>
+            <input id="name">
+        </div>
+
+        <div>
+            <label>Email</label>
+            <input id="email">
+        </div>
+
+        <div>
+            <label>Phone</label>
+            <input id="phone">
+        </div>
+
+        <div>
+            <label>Course</label>
+            <input id="course">
+        </div>
+
+        <div>
+            <label>Year</label>
+            <input id="year">
+        </div>
+
+        <div>
+            <label>Address</label>
+            <input id="address">
+        </div>
+    </div>
+
+    <div class="actions">
+        <button class="save" onclick="saveProfile()">Save Changes</button>
+        <button class="back" onclick="goBack()">Back</button>
+    </div>
+
+</div>
+
+<script>
+    const USER_ID = 2; // 🔴 demo ke liye hardcoded
+
+    // LOAD PROFILE
+    fetch(`http://localhost:8080/api/student/profile/${USER_ID}`)
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById("name").value = data.name || "";
+            document.getElementById("email").value = data.email || "";
+            document.getElementById("phone").value = data.phone || "";
+            document.getElementById("course").value = data.course || "";
+            document.getElementById("year").value = data.year || "";
+            document.getElementById("address").value = data.address || "";
+
+            if (data.photo) {
+                document.getElementById("profileImg").src =
+                    `http://localhost:8080/api/student/photo/view/${USER_ID}`;
+            }
+        });
+
+    // SAVE PROFILE
+    function saveProfile() {
+        const body = {
+            name: name.value,
+            email: email.value,
+            phone: phone.value,
+            course: course.value,
+            year: year.value,
+            address: address.value
+        };
+
+        fetch(`http://localhost:8080/api/student/profile/${USER_ID}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+        })
+        .then(res => {
+            if (res.ok) alert("Profile updated successfully");
+            else alert("Update failed");
+        });
+    }
+
+    // UPLOAD PHOTO
+    function uploadPhoto() {
+        const file = document.getElementById("photoInput").files[0];
+        if (!file) {
+            alert("Select photo first");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("photo", file);
+
+        fetch(`http://localhost:8080/api/student/photo/${USER_ID}`, {
+            method: "POST",
+            body: formData
+        })
+        .then(res => res.text())
+        .then(msg => {
+            alert(msg);
+            location.reload();
+        });
+    }
+
+    function goBack() {
+        window.location.href = "student-dashboard.html";
+    }
+</script>
+
+</body>
+</html>

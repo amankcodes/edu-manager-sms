@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attendance | Future Edu-Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ===== Sidebar ===== */
+        .sidebar {
+            width: 260px;
+            background: #ffffff;
+            border-right: 1px solid #e6e6e6;
+            padding: 30px 20px;
+        }
+
+        .sidebar h2 {
+            font-size: 20px;
+            margin-bottom: 40px;
+            color: #1e8449;
+        }
+
+        .menu a {
+            display: block;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: #444;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: #e8f5ee;
+            color: #1e8449;
+        }
+
+        /* ===== Main ===== */
+        .main {
+            flex: 1;
+            padding: 30px 40px;
+        }
+
+        .header {
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: #1e8449;
+        }
+
+        /* ===== Attendance Table ===== */
+        .table-box {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 14px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #e8f5ee;
+            color: #1e8449;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: #f9f9f9;
+        }
+
+        .present {
+            color: green;
+            font-weight: bold;
+        }
+
+        .absent {
+            color: red;
+            font-weight: bold;
+        }
+
+        .summary {
+            margin-top: 25px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .summary-box {
+            flex: 1;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+            text-align: center;
+        }
+
+        .summary-box h3 {
+            color: #1e8449;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- ===== Sidebar ===== -->
+    <div class="sidebar">
+        <h2>Future Edu-Manager</h2>
+
+        <div class="menu">
+            <a href="student-dashboard.html">📊 Dashboard</a>
+            <a href="student-profile.html">👤 My Profile</a>
+            <a href="student-attendance.html" class="active">📅 Attendance</a>
+            <a href="student-fees.html">💰 Fees</a>
+            <a href="notices.html">📢 Notices</a>
+            <a href="help-support.html">❓ Help & Support</a>
+            <a href="#" onclick="logout()">🚪 Logout</a>
+        </div>
+    </div>
+
+    <!-- ===== Main Content ===== -->
+    <div class="main">
+
+        <div class="header">
+            <h1>Attendance Overview</h1>
+        </div>
+
+        <!-- ===== Attendance Table ===== -->
+        <div class="table-box">
+            <table>
+                <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Total Classes</th>
+                    <th>Present</th>
+                    <th>Absent</th>
+                    <th>Percentage</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Data Structures</td>
+                    <td>40</td>
+                    <td>36</td>
+                    <td>4</td>
+                    <td>90%</td>
+                    <td class="present">Eligible</td>
+                </tr>
+                <tr>
+                    <td>Operating Systems</td>
+                    <td>38</td>
+                    <td>30</td>
+                    <td>8</td>
+                    <td>79%</td>
+                    <td class="present">Eligible</td>
+                </tr>
+                <tr>
+                    <td>Computer Networks</td>
+                    <td>42</td>
+                    <td>28</td>
+                    <td>14</td>
+                    <td>66%</td>
+                    <td class="absent">Shortage</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ===== Summary ===== -->
+        <div class="summary">
+            <div class="summary-box">
+                <h3>Overall Attendance</h3>
+                <p>78%</p>
+            </div>
+            <div class="summary-box">
+                <h3>Eligibility Status</h3>
+                <p>Allowed with Warning</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    function logout() {
+        alert("You have been logged out successfully");
+        window.location.href = "index.html";
+    }
+</script>
+
+</body>
+</html>

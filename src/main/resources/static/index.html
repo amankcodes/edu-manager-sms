@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Future Edu-Manager | College ERP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #333;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 60px 80px;
+            background: linear-gradient(135deg, #ffffff, #eef5f0);
+        }
+
+        .hero-left {
+            flex: 1;
+        }
+
+        .hero-left h1 {
+            font-size: 48px;
+            color: #1e8449;
+            margin-bottom: 15px;
+        }
+
+        .hero-left h2 {
+            font-size: 22px;
+            font-weight: 500;
+            color: #444;
+            margin-bottom: 25px;
+        }
+
+        .hero-left p {
+            font-size: 16px;
+            color: #666;
+            max-width: 520px;
+            line-height: 1.7;
+            margin-bottom: 35px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 14px 30px;
+            font-size: 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #1e8449;
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(30,132,73,0.3);
+        }
+
+        .btn-primary:hover {
+            background: #166437;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #cfcfcf;
+            transform: translateY(-2px);
+        }
+
+        .hero-right {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-right img {
+            max-width: 90%;
+            height: auto;
+        }
+
+        /* ===== STATS SECTION ===== */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            padding: 60px 80px;
+            background: #ffffff;
+        }
+
+        .stat-box {
+            background: #f9fbfa;
+            padding: 30px;
+            text-align: center;
+            border-radius: 14px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .stat-box h3 {
+            font-size: 32px;
+            color: #1e8449;
+            margin-bottom: 8px;
+        }
+
+        .stat-box p {
+            color: #555;
+            font-size: 15px;
+        }
+
+        /* ===== FEATURES ===== */
+        .features {
+            padding: 70px 80px;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 50px;
+            color: #1e8449;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #1e8449;
+            color: #fff;
+            padding: 40px 80px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        footer h3 {
+            margin-bottom: 15px;
+        }
+
+        footer p {
+            font-size: 14px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 20px;
+            }
+
+            .btn-group {
+                justify-content: center;
+            }
+
+            .hero-right {
+                margin-top: 30px;
+            }
+
+            .stats, .features, footer {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+    <div class="hero-left">
+        <h1>Future Edu-Manager</h1>
+        <h2>A Smart & Secure College ERP Platform</h2>
+        <p>
+            A complete solution to manage students, faculty, attendance,
+            academic records and notices with a modern, secure and
+            role-based system.
+        </p>
+
+        <div class="btn-group">
+            <a href="admin-login.html" class="btn btn-primary">Admin / Faculty Login</a>
+            <a href="student-login.html" class="btn btn-secondary">Student Login</a>
+        </div>
+    </div>
+
+    <div class="hero-right">
+        <!-- College logo yahin rahega -->
+        <img src="future-university-logo.png" alt="Future University Logo">
+    </div>
+</section>
+
+<!-- ===== STATS ===== -->
+<section class="stats">
+    <div class="stat-box">
+        <h3>1000+</h3>
+        <p>Students Managed</p>
+    </div>
+    <div class="stat-box">
+        <h3>50+</h3>
+        <p>Faculty Members</p>
+    </div>
+    <div class="stat-box">
+        <h3>30+</h3>
+        <p>Courses</p>
+    </div>
+    <div class="stat-box">
+        <h3>Secure</h3>
+        <p>Role-Based Access</p>
+    </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section class="features">
+    <h2>Key Features</h2>
+
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3>Student Dashboard</h3>
+            <p>Personal profile, attendance, fees & notices</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Attendance Tracking</h3>
+            <p>Subject-wise attendance management</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Notice Board</h3>
+            <p>Instant announcements & updates</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Secure Login</h3>
+            <p>Role-based authentication system</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div class="footer-content">
+        <div>
+            <h3>Future Edu-Manager</h3>
+            <p>
+                A modern College ERP system designed to simplify
+                academic and administrative operations.
+            </p>
+        </div>
+
+        <div>
+            <h3>College</h3>
+            <p>Future University</p>
+            <p>Department of Computer Science & Engineering</p>
+        </div>
+
+        <div>
+            <h3>Developer</h3>
+            <p>
+                Designed & Developed by<br>
+                <strong>Aman Kumar</strong><br>
+                B.Tech CSE (2022–2026)
+            </p>
+        </div>
+    </div>
+
+    <div class="copyright">
+        © 2025 Future Edu-Manager. All Rights Reserved.
+    </div>
+</footer>
+
+</body>
+</html>

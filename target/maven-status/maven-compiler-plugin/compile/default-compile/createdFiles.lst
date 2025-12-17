@@ -1,0 +1,14 @@
+com\futureedu\manager\model\Attendance.class
+com\futureedu\manager\repository\AttendanceRepository.class
+com\futureedu\manager\controller\AuthController.class
+com\futureedu\manager\model\User$Role.class
+com\futureedu\manager\controller\StudentDataController.class
+com\futureedu\manager\controller\AttendanceController.class
+com\futureedu\manager\repository\FeesRepository.class
+com\futureedu\manager\controller\StudentController.class
+com\futureedu\manager\repository\UserRepository.class
+com\futureedu\manager\model\User.class
+com\futureedu\manager\controller\FeesController.class
+com\futureedu\manager\model\Fees.class
+com\futureedu\manager\FutureEduManagerApplication.class
+com\futureedu\manager\controller\ProfilePhotoController.class

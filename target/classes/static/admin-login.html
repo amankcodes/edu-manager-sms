@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin / Faculty Login | Future Edu-Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 100vh;
+            padding: 60px 80px;
+        }
+
+        /* Left Illustration (optional) */
+        .left {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .left img {
+            max-width: 90%;
+            height: auto;
+        }
+
+        /* Right Login Box */
+        .right {
+            flex: 1;
+            max-width: 420px;
+        }
+
+        .right h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #222;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 6px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            font-size: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #1e8449;
+        }
+
+        .forgot {
+            text-align: right;
+            margin-bottom: 25px;
+        }
+
+        .forgot a {
+            font-size: 14px;
+            color: #555;
+            text-decoration: none;
+        }
+
+        .forgot a:hover {
+            text-decoration: underline;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background-color: #1e8449;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(30, 132, 73, 0.3);
+            transition: background 0.3s ease;
+        }
+
+        .btn-login:hover {
+            background-color: #166437;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                padding: 40px 20px;
+            }
+
+            .right {
+                margin-top: 30px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Left side (image optional, chhod bhi sakte ho) -->
+    <div class="left">
+        <!-- Image nahi mile to bhi page kaam karega -->
+        <!-- <img src="admin-login-illustration.png" alt="Admin Login"> -->
+    </div>
+
+    <!-- Right Login Form -->
+    <div class="right">
+        <h1>Admin/Faculty Login</h1>
+
+        <div class="form-group">
+            <label>Email address</label>
+            <input type="email" id="email" placeholder="Enter your email address">
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password" placeholder="Enter password">
+        </div>
+
+        <div class="forgot">
+            <a href="#">Forgot password?</a>
+        </div>
+
+        <button class="btn-login" onclick="login()">Login</button>
+    </div>
+
+</div>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+    function login() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        if (email === "" || password === "") {
+            alert("Please enter email and password");
+            return;
+        }
+
+        fetch("http://localhost:8080/api/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "SUCCESS") {
+                alert("Login successful! Welcome " + data.name);
+
+                if (data.role === "ADMIN") {
+                    // Dashboard baad me banayenge
+                    window.location.href = "admin-dashboard.html";
+                } else {
+                    alert("This is not an admin/faculty account");
+                }
+            } else {
+                alert("Invalid email or password");
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            alert("Server error. Try again later.");
+        });
+    }
+</script>
+
+</body>
+</html>
