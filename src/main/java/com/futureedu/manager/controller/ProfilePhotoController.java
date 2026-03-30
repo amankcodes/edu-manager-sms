@@ -2,6 +2,8 @@ package com.futureedu.manager.controller;
 
 import com.futureedu.manager.model.User;
 import com.futureedu.manager.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -17,6 +19,8 @@ import java.nio.file.Path;
 @RequestMapping("/api/student/photo")
 @CrossOrigin
 public class ProfilePhotoController {
+
+    private static final Logger log = LoggerFactory.getLogger(ProfilePhotoController.class);
 
     @Value("${file.upload-dir}")
     private String uploadDir;
@@ -44,8 +48,17 @@ public class ProfilePhotoController {
             File dir = new File(uploadDir);
             if (!dir.exists()) dir.mkdirs();
 
-            String fileName = id + "_" + System.currentTimeMillis()
-                    + "_" + file.getOriginalFilename();
+            // Sanitize original filename to prevent path traversal:
+            // strip directory components, then whitelist safe characters
+            String originalName = file.getOriginalFilename();
+            String baseName = (originalName == null ? "upload" : new File(originalName).getName());
+            // Remove leading dots (hidden files / relative traversal) and allow only alphanumerics, dash, underscore, dot
+            String safeName = baseName.replaceAll("^[.]+", "").replaceAll("[^a-zA-Z0-9._-]", "_");
+            if (safeName.isEmpty()) {
+                safeName = "upload";
+            }
+
+            String fileName = id + "_" + System.currentTimeMillis() + "_" + safeName;
 
             File destination = new File(dir, fileName);
             file.transferTo(destination);
@@ -56,7 +69,7 @@ public class ProfilePhotoController {
             return ResponseEntity.ok("Photo uploaded successfully");
 
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Photo upload failed for student {}: {}", id, e.getMessage(), e);
             return ResponseEntity.internalServerError()
                     .body("Upload failed: " + e.getMessage());
         }
@@ -91,9 +104,10 @@ public class ProfilePhotoController {
                     .body(imageBytes);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Photo retrieval failed for student {}: {}", id, e.getMessage(), e);
             return ResponseEntity.internalServerError()
                     .body("Error loading image");
         }
     }
 }
+
