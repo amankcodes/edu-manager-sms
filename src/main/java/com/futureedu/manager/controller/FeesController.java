@@ -1,24 +1,56 @@
 package com.futureedu.manager.controller;
 
+import com.futureedu.manager.model.Fees;
+import com.futureedu.manager.repository.FeesRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/student/fees")
 @CrossOrigin
 public class FeesController {
 
+    private final FeesRepository feesRepository;
+
+    public FeesController(FeesRepository feesRepository) {
+        this.feesRepository = feesRepository;
+    }
+
     @GetMapping("/{id}")
-    public Map<String, Object> getFees(@PathVariable Long id) {
+    public ResponseEntity<Fees> getFees(@PathVariable Long id) {
+        Fees fees = feesRepository.findByStudentId(id);
+        if (fees == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(fees);
+    }
 
-        Map<String, Object> fees = new HashMap<>();
-        fees.put("studentId", id);
-        fees.put("totalFees", 50000);
-        fees.put("paidFees", 12000);
-        fees.put("pendingFees", 38000);
+    @PostMapping
+    public ResponseEntity<Fees> addFees(@RequestBody Fees fees) {
+        Fees saved = feesRepository.save(fees);
+        return ResponseEntity.ok(saved);
+    }
 
-        return fees;
+    @PutMapping("/{id}")
+    public ResponseEntity<Fees> updateFees(
+            @PathVariable Long id,
+            @RequestBody Fees updated) {
+
+        return feesRepository.findById(id)
+                .map(record -> {
+                    record.setTotalAmount(updated.getTotalAmount());
+                    record.setPaidAmount(updated.getPaidAmount());
+                    return ResponseEntity.ok(feesRepository.save(record));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteFees(@PathVariable Long id) {
+        if (!feesRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        feesRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }

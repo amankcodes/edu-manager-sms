@@ -17,5 +17,15 @@ public class Fees {
         return totalAmount - paidAmount;
     }
 
-    // getters & setters
+    // getters
+    public Long getId() { return id; }
+    public Long getStudentId() { return studentId; }
+    public int getTotalAmount() { return totalAmount; }
+    public int getPaidAmount() { return paidAmount; }
+
+    // setters
+    public void setId(Long id) { this.id = id; }
+    public void setStudentId(Long studentId) { this.studentId = studentId; }
+    public void setTotalAmount(int totalAmount) { this.totalAmount = totalAmount; }
+    public void setPaidAmount(int paidAmount) { this.paidAmount = paidAmount; }
 }

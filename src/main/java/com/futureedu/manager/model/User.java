@@ -82,4 +82,8 @@ public class User {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }
