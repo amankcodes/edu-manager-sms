@@ -3,7 +3,6 @@ package com.futureedu.manager.controller;
 import com.futureedu.manager.model.User;
 import com.futureedu.manager.repository.UserRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,16 +11,19 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class StudentController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    // ================= GET PROFILE =================
-    @GetMapping("/profile/{id}")
-    public User getProfile(@PathVariable Long id) {
-        return userRepository.findById(id).orElse(null);
+    public StudentController(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    // ================= UPDATE PROFILE =================
+    @GetMapping("/profile/{id}")
+    public ResponseEntity<User> getProfile(@PathVariable Long id) {
+        return userRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @PutMapping("/profile/{id}")
     public ResponseEntity<?> updateProfile(
             @PathVariable Long id,
@@ -42,3 +44,4 @@ public class StudentController {
                 .orElse(ResponseEntity.notFound().build());
     }
 }
+

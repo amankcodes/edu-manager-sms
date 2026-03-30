@@ -32,8 +32,7 @@ src/main/java/com/futureedu/manager/
 │   ├── FeesController.java
 │   ├── GradeController.java
 │   ├── ProfilePhotoController.java
-│   ├── StudentController.java
-│   └── StudentDataController.java
+│   └── StudentController.java
 ├── exception/
 │   └── GlobalExceptionHandler.java
 ├── model/             JPA entities

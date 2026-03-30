@@ -40,6 +40,7 @@ public class GradeController {
                     record.setExamType(updated.getExamType());
                     record.setMarksObtained(updated.getMarksObtained());
                     record.setTotalMarks(updated.getTotalMarks());
+                    // studentId is intentionally not updated — records are immutable to their owner
                     return ResponseEntity.ok(gradeRepository.save(record));
                 })
                 .orElse(ResponseEntity.notFound().build());

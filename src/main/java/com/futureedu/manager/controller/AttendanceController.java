@@ -39,6 +39,7 @@ public class AttendanceController {
                     record.setSubject(updated.getSubject());
                     record.setTotalClasses(updated.getTotalClasses());
                     record.setPresentClasses(updated.getPresentClasses());
+                    // studentId is intentionally not updated — records are immutable to their owner
                     return ResponseEntity.ok(attendanceRepository.save(record));
                 })
                 .orElse(ResponseEntity.notFound().build());

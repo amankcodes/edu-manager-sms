@@ -1,5 +1,6 @@
 package com.futureedu.manager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,7 +13,9 @@ public class User {
 
     private String name;
     private String email;
-    private String password;   // 🔐 IMPORTANT
+
+    @JsonIgnore
+    private String password;
 
     private String phone;
     private String course;
@@ -29,61 +32,25 @@ public class User {
 
     // ===== GETTERS =====
     public Long getId() { return id; }
-
     public String getName() { return name; }
-
     public String getEmail() { return email; }
-
-    public String getPassword() {   // ✅ ADDED
-        return password;
-    }
-
+    public String getPassword() { return password; }
     public String getPhone() { return phone; }
-
     public String getCourse() { return course; }
-
     public String getYear() { return year; }
-
     public String getAddress() { return address; }
-
     public String getPhoto() { return photo; }
-
     public Role getRole() { return role; }
 
     // ===== SETTERS =====
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setEmail(String email) {   // ✅ FIXED
-        this.email = email;
-    }
-
-    public void setPassword(String password) {   // ✅ ADDED
-        this.password = password;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public void setCourse(String course) {
-        this.course = course;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
+    public void setName(String name) { this.name = name; }
+    public void setEmail(String email) { this.email = email; }
+    public void setPassword(String password) { this.password = password; }
+    public void setPhone(String phone) { this.phone = phone; }
+    public void setCourse(String course) { this.course = course; }
+    public void setYear(String year) { this.year = year; }
+    public void setAddress(String address) { this.address = address; }
+    public void setPhoto(String photo) { this.photo = photo; }
+    public void setRole(Role role) { this.role = role; }
 }
+

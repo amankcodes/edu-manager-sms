@@ -40,6 +40,7 @@ public class FeesController {
                 .map(record -> {
                     record.setTotalAmount(updated.getTotalAmount());
                     record.setPaidAmount(updated.getPaidAmount());
+                    // studentId is intentionally not updated — records are immutable to their owner
                     return ResponseEntity.ok(feesRepository.save(record));
                 })
                 .orElse(ResponseEntity.notFound().build());
